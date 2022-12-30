@@ -113,7 +113,7 @@ function Beranda() {
             Batal
           </button>
           <button
-            data-cy="modal-delete-confirm-button"
+            data-cy="activity-item-delete-button"
             onClick={removeData}
             className="w-24 h-10 bg-red-400 font-medium text-white p-2 ml-12 rounded-full"
           >
@@ -123,8 +123,14 @@ function Beranda() {
       </DeleteModal>
       <Layout>
         <div className="mb-20 mt-10 md:mt-0 md:mb-10 flex items-center justify-between">
-          <span className="text-3xl font-bold">Activity</span>
-          <AddButton loadingData={loadingData} addData={addData} />
+          <span data-cy="activity-title" className="text-3xl font-bold">
+            Activity
+          </span>
+          <AddButton
+            datacy="activity-add-button"
+            loadingData={loadingData}
+            addData={addData}
+          />
         </div>
         {totalData === 0 ? (
           <div
