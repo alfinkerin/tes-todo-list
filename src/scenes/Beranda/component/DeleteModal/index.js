@@ -14,7 +14,7 @@ export const DeleteModal = ({
 }) => {
   return (
     <div
-      data-cy={datacy}
+      data-cy="activity-item-delete-button"
       className={clsx(
         "fixed inset-0 z-10",
         openModal ? "pointer-events-auto" : "pointer-events-none",

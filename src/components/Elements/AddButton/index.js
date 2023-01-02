@@ -10,7 +10,7 @@ function AddButton({ addData, loadingData, listData, setOpen, datacy }) {
     <>
       {listData ? (
         <button
-          data-cy={datacy}
+          datacy="activity-add-button"
           onClick={() => setOpen(true)}
           className="w-28 cursor-pointer flex items-center justify-center bg-[#16ABF8] p-2 rounded-full "
         >

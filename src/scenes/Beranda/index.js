@@ -139,15 +139,11 @@ function Beranda() {
           <span data-cy="activity-title" className="text-3xl font-bold">
             Activity
           </span>
-          <AddButton
-            datacy="activity-add-button"
-            loadingData={loadingData}
-            addData={addData}
-          />
+          <AddButton loadingData={loadingData} addData={addData} />
         </div>
         {totalData === 0 ? (
           <div
-            data-cy="activity-empty-state"
+            data-cy="todo-empty-state"
             className="w-full h-full object-cover flex items-center justify-center"
           >
             <img
@@ -157,7 +153,7 @@ function Beranda() {
             />
           </div>
         ) : (
-          <div className="w-full flex flex-wrap ">
+          <div data-cy={`activity-item`} className="w-full flex flex-wrap ">
             {listData.map((x, i) => (
               <div
                 data-cy={`activity-item-${i}`}
