@@ -4,8 +4,10 @@ import axios from "axios";
 import emptyState from "../../assets/images/emptystate.png";
 import AddButton from "../../components/Elements/AddButton";
 import Card from "../../components/Elements/Card";
-import { RiDeleteBinLine, RiAlertLine } from "react-icons/ri";
+import { RiAlertLine } from "react-icons/ri";
 import { DeleteModal } from "./component/DeleteModal";
+import { Alert } from "./component/Alert";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 function Beranda() {
   const [listData, setListData] = useState([]);
@@ -13,8 +15,8 @@ function Beranda() {
   const [loadingData, setLoadingData] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
   const [titleDelete, setTitleDelete] = useState("");
-  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [idActivity, setIdActivity] = useState("");
 
   const addData = () => {
@@ -76,9 +78,9 @@ function Beranda() {
       )
 
       .then((res) => {
-        console.log(res);
         setIsDelete(false);
         setOpenModal(false);
+        setOpenAlert(true);
       })
       .catch((err) => {
         console.log(err);
@@ -113,7 +115,7 @@ function Beranda() {
             Batal
           </button>
           <button
-            data-cy="activity-item-delete-button"
+            data-cy="modal-delete-confirm-button"
             onClick={removeData}
             className="w-24 h-10 bg-red-400 font-medium text-white p-2 ml-12 rounded-full"
           >
@@ -121,6 +123,17 @@ function Beranda() {
           </button>
         </div>
       </DeleteModal>
+      <Alert openAlert={openAlert} close={() => setOpenAlert(false)}>
+        <div className="flex items-center">
+          <AiOutlineInfoCircle
+            data-cy="modal-information-icon"
+            className="w-5 h-5 mr-3 text-green-600"
+          />{" "}
+          <label data-cy="modal-information-title">
+            Activity berhasil di hapus
+          </label>
+        </div>
+      </Alert>
       <Layout>
         <div className="mb-20 mt-10 md:mt-0 md:mb-10 flex items-center justify-between">
           <span data-cy="activity-title" className="text-3xl font-bold">

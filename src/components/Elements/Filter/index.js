@@ -27,10 +27,11 @@ function Filter({ datacy }) {
   //   console.log(filteredDates);
   return (
     <div
+      onClick={() => setOpen(!open)}
       data-cy={datacy}
       className="w-10 h-10 relative mr-4 cursor-pointer flex items-center justify-center rounded-full border border-gray-500"
     >
-      <div onClick={() => setOpen(!open)} className="flex">
+      <div className="flex">
         <BsArrowUp className="w-3 h-3" />
         <BsArrowDown className="w-3 h-3" />
       </div>

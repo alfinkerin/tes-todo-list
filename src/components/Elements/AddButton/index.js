@@ -4,6 +4,8 @@ import { TailSpin } from "react-loader-spinner";
 import { useState } from "react";
 
 function AddButton({ addData, loadingData, listData, setOpen, datacy }) {
+  console.log(datacy);
+
   return (
     <>
       {listData ? (

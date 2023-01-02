@@ -339,6 +339,7 @@ function Detail() {
             </div>
 
             <MdOutlineModeEditOutline
+              data-cy="todo-title-edit-button"
               onClick={() => setIsForm(!isForm)}
               className="text-[#A4A4A4]  h-6 w-6 mt-1 cursor-pointer ml-4"
             />
