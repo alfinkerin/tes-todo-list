@@ -19,14 +19,20 @@ function Card({
     <>
       <Link to={`/detail/${id}`} state={{ title: title, id: id }}>
         <div className="w-full h-full flex flex-col  justify-between border bg-white border-none shadow-xl rounded-t-xl py-6 px-7">
-          <span className=" text-lg text-black font-bold text-ellipsis break-words">
+          <span
+            data-cy="activity-item-title"
+            className=" text-lg text-black font-bold text-ellipsis break-words"
+          >
             {title}
           </span>
         </div>
       </Link>
       <div className="flex justify-between items-center bg-white  shadow-xl rounded-b-xl py-4 px-7">
-        <span className="text-[#888888] text-sm">{date}</span>
+        <span data-cy="activity-item-date" className="text-[#888888] text-sm">
+          {date}
+        </span>
         <RiDeleteBin6Line
+          data-cy="activity-item-delete-button"
           onClick={() => {
             setTitleDelete(title);
             setOpenModal(true);

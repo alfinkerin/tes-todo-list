@@ -139,7 +139,11 @@ function Beranda() {
           <span data-cy="activity-title" className="text-3xl font-bold">
             Activity
           </span>
-          <AddButton loadingData={loadingData} addData={addData} />
+          <AddButton
+            datacy="activity-add-button"
+            loadingData={loadingData}
+            addData={addData}
+          />
         </div>
         {totalData === 0 ? (
           <div
