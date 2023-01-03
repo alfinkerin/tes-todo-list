@@ -15,16 +15,24 @@ import { RiDeleteBinLine, RiAlertLine } from "react-icons/ri";
 import { DeleteModal } from "./component/DeleteModal";
 import { EditModal } from "./component/EditModal";
 
+import { BsArrowDown, BsArrowUp } from "react-icons/bs";
+import filter1 from "../../assets/images/terbaru.png";
+import filter3 from "../../assets/images/az.png";
+import filter2 from "../../assets/images/terlama.png";
+import filter4 from "../../assets/images/za.png";
+import filter5 from "../../assets/images/belumselesai.png";
+
 function Detail() {
   const location = useLocation();
   const { title, id } = location.state;
-
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isForm, setIsForm] = useState(true);
   const [name, setName] = useState(title);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [list, setList] = useState([]);
+  const [filterList, setFilterList] = useState([]);
   const [totalList, setTotalList] = useState(0);
   const [isDropDown, setIsDropDown] = useState(false);
   const [titleForm, setTitleForm] = useState("");
@@ -54,6 +62,7 @@ function Detail() {
 
       .then((res) => {
         setList(res.data.data);
+        setFilterList(res.data.data);
         setTotalList(res.data.total);
       })
       .catch((err) => {});
@@ -198,6 +207,44 @@ function Detail() {
         setIsSubmit(false);
         setOpenModalEdit(false);
       });
+  };
+
+  // filter
+
+  const sortData = (type) => {
+    if (type === "Terbaru") {
+      const shorted = list.sort((a, b) => b.id - a.id);
+      setFilterList(shorted);
+    } else if (type === "Terlama") {
+      const shorted = list.sort((a, b) => a.id - b.id);
+      setFilterList(shorted);
+    } else if (type === "A-Z") {
+      const shorted = list.sort((a, b) => (a.title > b.title ? 1 : -1));
+      setFilterList(shorted);
+    } else if (type === "Z-A") {
+      const shorted = list.sort((a, b) => (a.title > b.title ? -1 : 1));
+      setFilterList(shorted);
+    } else if (type === "BelumSelesai") {
+      const shorted = list.sort((a, b) =>
+        a.is_actived > b.is_actived ? -1 : 1
+      );
+      const groupNames = Array.from(new Set(shorted.map((k) => k.is_active)));
+      let groups = {};
+
+      groupNames.forEach((k) => {
+        groups[k] = [];
+      });
+
+      shorted.forEach((k) => {
+        const month = k.is_active;
+        groups[month].push(k);
+      });
+
+      const merge = groups[0].concat(groups[1]);
+
+      const filtered = merge.sort((a, b) => b.is_active - a.is_active);
+      setFilterList(filtered);
+    }
   };
 
   return (
@@ -345,7 +392,84 @@ function Detail() {
             />
           </div>
           <div className="flex items-center justify-end my-6 ">
-            <Filter datacy="todo-sort-button" list={list} />
+            <div
+              data-cy="todo-sort-button"
+              onClick={() => setIsOpenFilter(!isOpenFilter)}
+              className="w-10 h-10 relative mr-4 cursor-pointer flex items-center justify-center rounded-full border border-gray-500"
+            >
+              <div className="flex">
+                <BsArrowUp className="w-3 h-3" />
+                <BsArrowDown className="w-3 h-3" />
+              </div>
+
+              {isOpenFilter ? (
+                <div className="h-auto w-52 border absolute top-12 bg-white rounded-md flex items-center shadow-md">
+                  <ul className="w-full">
+                    <li
+                      data-cy="sort-latest"
+                      onClick={() => sortData("Terbaru")}
+                      className="h-12 w-full border-gray-100 border-b hover:bg-gray-200  flex items-center px-3"
+                    >
+                      <img
+                        src={filter1}
+                        className="w-4 h-4 mr-2"
+                        alt="filter"
+                      />
+                      Terbaru
+                    </li>
+                    <li
+                      data-cy="sort-oldest"
+                      onClick={() => sortData("Terlama")}
+                      className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
+                    >
+                      <img
+                        src={filter2}
+                        className="w-4 h-4 mr-2"
+                        alt="filter"
+                      />
+                      Terlama
+                    </li>
+                    <li
+                      data-cy="sort-az"
+                      onClick={() => sortData("A-Z")}
+                      className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
+                    >
+                      <img
+                        src={filter3}
+                        className="w-4 h-4 mr-2"
+                        alt="filter"
+                      />{" "}
+                      A-Z
+                    </li>
+
+                    <li
+                      data-cy="sort-za"
+                      onClick={() => sortData("Z-A")}
+                      className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
+                    >
+                      <img
+                        src={filter4}
+                        className="w-4 h-4 mr-2"
+                        alt="filter"
+                      />{" "}
+                      Z-A
+                    </li>
+                    <li
+                      data-cy="sort-unfinished"
+                      onClick={() => sortData("BelumSelesai")}
+                      className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
+                    >
+                      <img
+                        src={filter5}
+                        className="w-4 h-4 mr-2"
+                        alt="filter"
+                      />{" "}
+                      Belum Selesai
+                    </li>
+                  </ul>
+                </div>
+              ) : null}
+            </div>
             <AddButton datacy="todo-add-button" listData setOpen={setOpen} />
           </div>
         </div>
@@ -363,11 +487,11 @@ function Detail() {
             />
           </div>
         ) : (
-          <div className="">
-            {list.map((x, i) => (
+          <div>
+            {filterList.map((x, i) => (
               <div
                 data-cy={`todo-item-${i}`}
-                key={i}
+                key={x.id}
                 className="w-full h-20 shadow-lg my-4 bg-white rounded-md flex justify-between items-center px-6"
               >
                 <div className="flex items-center">

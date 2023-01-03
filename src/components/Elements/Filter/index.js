@@ -6,28 +6,34 @@ import filter4 from "../../../assets/images/za.png";
 import filter5 from "../../../assets/images/belumselesai.png";
 import { useState } from "react";
 
-function Filter({ datacy }) {
-  const [open, setOpen] = useState(false);
+function Filter({ datacy, list, setFilterList, filterList }) {
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
 
-  //   console.log(list);
+  const sortData = (type) => {
+    switch (type) {
+      case "Terbaru":
+        const shorted = list.sort((a, b) => a.id - b.id);
+        setFilterList(shorted);
+        console.log(shorted);
+      case "Terlama":
+        const shortede = list.sort((a, b) => b.id - a.id);
+        setFilterList(shortede);
+        console.log(shortede);
+        break;
+    }
+  };
 
-  //   const terbaru = () => {
-  //     for (let li of list) {
-  //       const arry = [li.id];
-  //       const filter = arry.short(function (a, b) {
-  //         return a - b;
-  //       });
-  //       console.log(filter);
-  //     }
-  //   };
+  const filteredData = () => {
+    const shorted = list.sort((a, b) => a.id - b.id);
+    setFilterList(shorted);
+    console.log(shorted);
+  };
 
-  //   terbaru();
+  console.log(filterList);
 
-  //   const filteredDates = list.id.short();
-  //   console.log(filteredDates);
   return (
     <div
-      onClick={() => setOpen(!open)}
+      onClick={() => setIsOpenFilter(!isOpenFilter)}
       data-cy={datacy}
       className="w-10 h-10 relative mr-4 cursor-pointer flex items-center justify-center rounded-full border border-gray-500"
     >
@@ -36,15 +42,21 @@ function Filter({ datacy }) {
         <BsArrowDown className="w-3 h-3" />
       </div>
 
-      {open ? (
+      {isOpenFilter ? (
         <div className="h-auto w-52 border absolute top-12 bg-white rounded-md flex items-center shadow-md">
           <ul className="w-full">
-            <li className="h-12 w-full border-gray-100 border-b hover:bg-gray-200  flex items-center px-3">
-              <img src={filter1} className="w-4 h-4 mr-2" alt="filter" />{" "}
+            <li
+              onClick={() => filteredData()}
+              className="h-12 w-full border-gray-100 border-b hover:bg-gray-200  flex items-center px-3"
+            >
+              <img src={filter1} className="w-4 h-4 mr-2" alt="filter" />
               Terbaru
             </li>
-            <li className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3">
-              <img src={filter2} className="w-4 h-4 mr-2" alt="filter" />{" "}
+            <li
+              // onClick={sortData("Terlama")}
+              className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
+            >
+              <img src={filter2} className="w-4 h-4 mr-2" alt="filter" />
               Terlama
             </li>
             <li className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3">

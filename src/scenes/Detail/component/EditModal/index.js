@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react";
 import clsx from "clsx";
 import { FiX } from "react-icons/fi";
 
