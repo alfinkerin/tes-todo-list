@@ -406,7 +406,7 @@ function Detail() {
                 <div className="h-auto w-52 border absolute top-12 bg-white rounded-md flex items-center shadow-md">
                   <ul className="w-full">
                     <li
-                      data-cy="sort-latest"
+                      data-cy="todo-sort-latest"
                       onClick={() => sortData("Terbaru")}
                       className="h-12 w-full border-gray-100 border-b hover:bg-gray-200  flex items-center px-3"
                     >
@@ -418,7 +418,7 @@ function Detail() {
                       Terbaru
                     </li>
                     <li
-                      data-cy="sort-oldest"
+                      data-cy="todo-sort-oldest"
                       onClick={() => sortData("Terlama")}
                       className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
                     >
@@ -430,7 +430,7 @@ function Detail() {
                       Terlama
                     </li>
                     <li
-                      data-cy="sort-az"
+                      data-cy="todo-sort-az"
                       onClick={() => sortData("A-Z")}
                       className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
                     >
@@ -443,7 +443,7 @@ function Detail() {
                     </li>
 
                     <li
-                      data-cy="sort-za"
+                      data-cy="todo-sort-za"
                       onClick={() => sortData("Z-A")}
                       className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
                     >
@@ -455,7 +455,7 @@ function Detail() {
                       Z-A
                     </li>
                     <li
-                      data-cy="sort-unfinished"
+                      data-cy="todo-sort-unfinished"
                       onClick={() => sortData("BelumSelesai")}
                       className="h-12 w-full border-gray-100 hover:bg-gray-200  border-b flex items-center px-3"
                     >
